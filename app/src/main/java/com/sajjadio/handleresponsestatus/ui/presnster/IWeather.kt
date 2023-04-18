@@ -1,7 +1,9 @@
 package com.sajjadio.handleresponsestatus.ui.presnster
 
-import com.sajjadio.handleresponsestatus.utils.ResponseStatus
+import com.sajjadio.handleresponsestatus.data.model.ResponseWeather
 
 interface IWeather {
-    fun checkResponseStatus(status: ResponseStatus)
+    fun showLoading(isLoading: Boolean)
+    fun showSuccessfulResponseStatus(weather: ResponseWeather)
+    fun showFailureResponseStatus(errorMessage: String)
 }

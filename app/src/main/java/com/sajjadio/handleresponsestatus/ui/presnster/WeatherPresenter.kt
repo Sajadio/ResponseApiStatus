@@ -2,7 +2,6 @@ package com.sajjadio.handleresponsestatus.ui.presnster
 
 import com.sajjadio.handleresponsestatus.data.model.ResponseWeather
 import com.sajjadio.handleresponsestatus.data.remote.ApiService
-import com.sajjadio.handleresponsestatus.utils.ResponseStatus
 import java.io.IOException
 
 class WeatherPresenter(
@@ -15,15 +14,17 @@ class WeatherPresenter(
             ::onSuccess,
             ::onFailure
         )
-        view.checkResponseStatus(ResponseStatus.Loading)
+        view.showLoading(true)
     }
 
     private fun onSuccess(weather: ResponseWeather) {
-        view.checkResponseStatus(ResponseStatus.Success(weather))
+        view.showLoading(false)
+        view.showSuccessfulResponseStatus(weather)
     }
 
     private fun onFailure(e: IOException) {
-        view.checkResponseStatus(ResponseStatus.Error(e.message.toString()))
+        view.showLoading(true)
+        view.showFailureResponseStatus(e.message.toString())
     }
 
 }

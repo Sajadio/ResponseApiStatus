@@ -39,21 +39,18 @@ class MainActivity : AppCompatActivity(), IWeather {
         presenter.loadData()
     }
 
-    override fun checkResponseStatus(status: ResponseStatus) {
+    override fun showLoading(isLoading: Boolean) {
         runOnUiThread {
-            when (status) {
-                is ResponseStatus.Loading -> setProgressbarVisibility(true)
-                is ResponseStatus.Success -> {
-                    setProgressbarVisibility(false)
-                    loadData(status.data as ResponseWeather)
-                }
-
-                is ResponseStatus.Error -> {
-                    setProgressbarVisibility(false)
-                    makeToast(status.message)
-                }
-            }
+            setProgressbarVisibility(isLoading)
         }
+    }
+
+    override fun showSuccessfulResponseStatus(weather: ResponseWeather) {
+        loadData(weather)
+    }
+
+    override fun showFailureResponseStatus(errorMessage: String) {
+        makeToast(errorMessage)
     }
 
     private fun setProgressbarVisibility(visibility: Boolean) {
