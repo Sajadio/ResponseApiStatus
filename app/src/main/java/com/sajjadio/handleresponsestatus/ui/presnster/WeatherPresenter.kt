@@ -15,15 +15,15 @@ class WeatherPresenter(
             ::onSuccess,
             ::onFailure
         )
-        view.handleResponseStatus(ResponseStatus.Loading)
+        view.checkResponseStatus(ResponseStatus.Loading)
     }
 
     private fun onSuccess(weather: ResponseWeather) {
-        view.handleResponseStatus(ResponseStatus.Success(weather))
+        view.checkResponseStatus(ResponseStatus.Success(weather))
     }
 
     private fun onFailure(e: IOException) {
-        view.handleResponseStatus(ResponseStatus.Error(e.message.toString()))
+        view.checkResponseStatus(ResponseStatus.Error(e.message.toString()))
     }
 
 }

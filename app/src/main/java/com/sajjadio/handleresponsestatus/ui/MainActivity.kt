@@ -2,7 +2,6 @@ package com.sajjadio.handleresponsestatus.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
@@ -40,25 +39,24 @@ class MainActivity : AppCompatActivity(), IWeather {
         presenter.loadData()
     }
 
-    override fun handleResponseStatus(status: ResponseStatus) {
+    override fun checkResponseStatus(status: ResponseStatus) {
         runOnUiThread {
             when (status) {
-                is ResponseStatus.Loading -> handleProgressBarVisibility(true)
+                is ResponseStatus.Loading -> setProgressbarVisibility(true)
                 is ResponseStatus.Success -> {
-                    handleProgressBarVisibility(false)
+                    setProgressbarVisibility(false)
                     loadData(status.data as ResponseWeather)
                 }
 
                 is ResponseStatus.Error -> {
-                    handleProgressBarVisibility(false)
+                    setProgressbarVisibility(false)
                     makeToast(status.message)
-                    Log.d("Sajjadio", "handleResponseStatus: ${status.message}")
                 }
             }
         }
     }
 
-    private fun handleProgressBarVisibility(visibility: Boolean) {
+    private fun setProgressbarVisibility(visibility: Boolean) {
         binding.progress.isVisible = visibility
     }
 
